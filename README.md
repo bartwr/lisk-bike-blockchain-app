@@ -6,6 +6,7 @@ This is how you make transactions.
 
 ### Preparing lock
 
+-
 - Charge lock
 
 - Remove SIM PIN
