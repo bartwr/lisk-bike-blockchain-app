@@ -1,6 +1,8 @@
 # Lisk.Bike Documentation
 
-This is how you make transactions.
+In this repository you find the code for running a Lisk sidechain meant for running Lisk.Bike.
+
+The code is based on @JesusTheHun's work in [github.com/JesusTheHun/lisk-bike](https://github.com/JesusTheHun/lisk-bike)
 
 ## Introduction: This is the flow
 
@@ -48,3 +50,16 @@ Every x minutes the server receives the GPS location.
 The server looks up the account of the lock in its database, based on IMEI.
 The locks privkey then signs the 'update-bike-location' transaction.
 
+## 4. Store lock status on blockchain
+
+If lock opens/closed, the lock sends a command to the server.
+The server looks up the account of the lock in its database, based on IMEI.
+The locks privkey then signs the 'update-lock-status' transaction.
+
+- Lock: Lock opened
+- Lock: Lock closed
+
+## 5. 
+
+User: Please open lock
+User: Please close lock
