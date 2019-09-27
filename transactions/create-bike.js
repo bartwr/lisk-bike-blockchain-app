@@ -1,6 +1,6 @@
 const { BigNum } = require('lisk-sdk');
 const { BaseTransaction, TransferTransaction, TransactionError } = require('@liskhq/lisk-transactions');
-const { Bike, BikeValidator } = require('../bike.domain');
+const { Bike, BikeValidator } = require('./bike.domain');
 
 const defaultLocation = {
     latitude: new BigNum(48.8534).toString(),
