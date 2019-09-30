@@ -1,3 +1,4 @@
+require('dotenv').config()
 const fs = require('fs');
 
 const { getAddressFromPublicKey, getKeys } = require('@liskhq/lisk-cryptography');
@@ -5,7 +6,9 @@ const { Mnemonic } = require('@liskhq/lisk-passphrase');
 const transactions = require('@liskhq/lisk-transactions');
 const { getTimestamp } = require('./_helpers.js');
 
-const { FaucetTransaction } = require('../transactions/FaucetTransaction.js');
+const FaucetTransaction = require('../transactions/faucet.js');
+// const HelloTransaction = require('../hello_transaction');
+
 const { APIClient } = require('@liskhq/lisk-client');
 
 const createAccount = (name) => {
@@ -20,11 +23,13 @@ const createAccount = (name) => {
     address
   };
 
-  fs.writeFileSync(`./${name}.json`, JSON.stringify(account));
+  fs.writeFileSync(`./accounts/${name}.json`, JSON.stringify(account));
+
+  return account;
 }
 
 // Create account
-const account = createAccount('account')
+const account = createAccount('fiets1')
 
 // Make connection to the blockchain
 const client = new APIClient([`http://${process.env.HTTP_HOST}:${process.env.HTTP_PORT}`]);

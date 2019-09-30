@@ -1,6 +1,6 @@
 const { BigNum } = require('lisk-sdk');
 const { BaseTransaction, TransactionError } = require('@liskhq/lisk-transactions');
-const { Bike, BikeValidator } = require('../bike.domain');
+const { Bike, BikeValidator } = require('./bike.domain');
 
 /**
  * Assets : {

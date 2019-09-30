@@ -6,12 +6,12 @@ class FaucetTransaction extends BaseTransaction {
         return 777;
     }
 
-    validateAsset() {
-        return [];
-    }
-
     async prepare(store) {
         await store.account.cache([ { address: this.recipientId } ]);
+    }
+
+    validateAsset() {
+        return [];
     }
 
     applyAsset(store) {
