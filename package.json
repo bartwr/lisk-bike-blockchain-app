@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start-lisk-side-chain": "node index.js | npx bunyan -o short",
+    "start": "node index.js | npx bunyan -o short",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
