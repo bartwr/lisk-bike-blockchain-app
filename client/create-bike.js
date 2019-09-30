@@ -1,3 +1,5 @@
+require('dotenv').config()
+const fs = require('fs');
 const { APIClient } = require('@liskhq/lisk-client');
 const transactions = require('@liskhq/lisk-transactions');
 const client = new APIClient([`http://${process.env.HTTP_HOST}:${process.env.HTTP_PORT}`]);
@@ -7,10 +9,10 @@ const { getTimestamp } = require('./_helpers.js');
 const CreateBikeTransaction = require('../transactions/create-bike'); // require the newly created transaction type 'HelloTransaction'
 
 // Get 'account'
-const account = JSON.parse(fs.readFileSync('./account.json'));
+const account = JSON.parse(fs.readFileSync('./accounts/fiets1.json'));
 
 // Get bike ID
-const bikeId = 'pubkeyOfAccount--see-create-account.js';
+const bikeId = account.pubKey;
 
 // Create tx
 const tx = new CreateBikeTransaction({
@@ -19,8 +21,10 @@ const tx = new CreateBikeTransaction({
   timestamp: getTimestamp(),
   asset: {
     id: Number(bikeId).toString(),
+    title: 'hello bike!',
+    description: 'Rent me! I\'m a very good bike.',
     pricePerHour: transactions.utils.convertLSKToBeddows("1"),
-    deposit: transactions.utils.convertLSKToBeddows("300"),
+    deposit: transactions.utils.convertLSKToBeddows("20"),
     latitude: null,
     longitude: null
   }
@@ -30,7 +34,7 @@ const tx = new CreateBikeTransaction({
 tx.sign(account.passphrase);
 
 // Broadcast the tx to the blockchain
-const broadcastedTx = client.transactions.broadcast(tx.toJSON())
+const broadcastTx = client.transactions.broadcast(tx.toJSON());
 
 broadcastedTx.then(() => {
   console.info(`Bike #${bikeId} created`);
@@ -38,5 +42,3 @@ broadcastedTx.then(() => {
 .catch(error => {
   console.error(error);
 });
-
-
