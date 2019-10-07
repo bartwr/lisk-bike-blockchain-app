@@ -6,6 +6,19 @@ The code is based on @JesusTheHun's work in [github.com/JesusTheHun/lisk-bike](h
 
 ## Introduction: This is the flow
 
+### Preparing the blockchain
+
+- dotenv error: do npm install in the file named 'client'
+- make sure that node version 12 is running: nvm use 12
+
+- pm2 start --name lisk-bike-blockchain-app index.js
+- add to index.js: configDevnet.modules.http_api.access.public = true;
+- run the blockchain: node index.js | npx bunyan -o short
+
+### Preparing client
+- in 'client' edit .env file: HTTP_HOST=brainz.lisk.bike 
+- TIME error: make sure that the time is sychronised. Check with time with command: date
+
 ### Preparing lock
 
 - Charge lock
