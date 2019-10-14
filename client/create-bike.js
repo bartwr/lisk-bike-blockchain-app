@@ -12,7 +12,7 @@ const CreateBikeTransaction = require('../transactions/create-bike'); // require
 const account = JSON.parse(fs.readFileSync('./accounts/fiets1.json'));
 
 // Get bike ID
-const bikeId = account.pubKey;
+const bikeId = account.publicKey;
 
 // Create tx
 const tx = new CreateBikeTransaction({
@@ -36,7 +36,7 @@ tx.sign(account.passphrase);
 // Broadcast the tx to the blockchain
 const broadcastTx = client.transactions.broadcast(tx.toJSON());
 
-broadcastedTx.then(() => {
+broadcastTx.then(() => {
   console.info(`Bike #${bikeId} created`);
 })
 .catch(error => {
