@@ -53,8 +53,8 @@ class UpdateBikeLocationTransaction extends BaseTransaction {
             errors.push(new TransactionError("Bike not found", this.id, "this.asset.id", this.asset.id, "An existing bike ID on recipient account"));
         }
 
-        if (rentedBike.rentedBy !== this.senderId) {
-            errors.push(new TransactionError(`Bike position can only be updated by the one who is renting it`, this.id, "this.asset.id", this.asset.id, "Nice try"));
+        if (rentedBike.id !== this.senderId) {
+            errors.push(new TransactionError(`Bike position can only be updated by the bike itself`, this.id, "this.asset.id", this.asset.id, "Nice try"));
         }
 
         if (this.asset.previousLatitude !== rentedBike.location.latitude || this.asset.previousLongitude !== rentedBike.location.longitude) {

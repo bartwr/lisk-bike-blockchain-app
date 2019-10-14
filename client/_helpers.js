@@ -7,4 +7,21 @@ const getTimestamp = () => {
   return  parseInt(inSeconds);
 };
 
-module.exports = {getTimestamp}
+const getBike = (client, account) => {
+  // console.log("account:",account.publicKey);
+
+  return client.accounts.get({
+    //address: '1391163426858015119L'
+    address: account.address
+  }).then(response => {
+    const bikes = response.data[0].asset;
+    // console.log("bikes:", bikes);
+    const thisBike = bikes.bikes[account.address];
+    // console.log("thisBike:", thisBike);
+    return thisBike;
+  }).catch(err => {
+    console.error("err1",err);
+  });
+}
+
+module.exports = {getTimestamp, getBike}
