@@ -29,7 +29,7 @@ const createAccount = (name) => {
 }
 
 // Create account
-const account = createAccount('fiets1')
+const account = createAccount('renter1')
 
 // Make connection to the blockchain
 const client = new APIClient([`http://${process.env.HTTP_HOST}:${process.env.HTTP_PORT}`]);

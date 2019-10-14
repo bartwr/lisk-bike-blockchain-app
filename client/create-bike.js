@@ -9,7 +9,7 @@ const { getTimestamp } = require('./_helpers.js');
 const CreateBikeTransaction = require('../transactions/create-bike'); // require the newly created transaction type 'HelloTransaction'
 
 // Get 'account'
-const account = JSON.parse(fs.readFileSync('./accounts/fiets1.json'));
+const account = JSON.parse(fs.readFileSync('./accounts/fiets1.json')); 
 
 // Get bike ID
 const bikeId = account.publicKey;
@@ -20,7 +20,7 @@ const tx = new CreateBikeTransaction({
   recipientId: account.address,
   timestamp: getTimestamp(),
   asset: {
-    id: Number(bikeId).toString(),
+    id: account.address, //Number(bikeId).toString(),
     title: 'hello bike!',
     description: 'Rent me! I\'m a very good bike.',
     pricePerHour: transactions.utils.convertLSKToBeddows("1"),
@@ -29,6 +29,7 @@ const tx = new CreateBikeTransaction({
     longitude: null
   }
 });
+console.log(tx);
 
 // Sign transaction
 tx.sign(account.passphrase);
