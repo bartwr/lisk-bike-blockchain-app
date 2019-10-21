@@ -9,8 +9,8 @@ module.exports = {
         this.rentedBy = undefined;
         this.pricePerHour = undefined;
         this.deposit = undefined;
-        this.lastRentTransactionId = undefined;
-        this.lastReturnTransactionId = undefined;
+        // this.lastRentTransactionId = undefined;
+        // this.lastReturnTransactionId = undefined;
         this.rentalStartDatetime = undefined;
         this.rentalEndDatetime = undefined;
       }
