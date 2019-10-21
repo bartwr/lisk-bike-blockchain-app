@@ -76,10 +76,17 @@ class ReturnBikeTransaction extends BaseTransaction {
         //     errors.push(new TransactionError('Invalid lastReturnTransactionId for this bike', this.id, '.asset.id', this.asset.lastReturnTransactionId, 'The last transaction id of the bike you want to rent'));
         // }
 
-        const rentalDuration = this.timestamp - lastRentTransaction.timestamp;
+        // const rentStartTimestamp = lastRentTransaction.timestamp; // XXX how to this without lastRentTransaction?
+        const rentStartTimestamp = this.timestamp - 15 * 60; // 15 minutes
+
+        const rentalDuration = this.timestamp - rentStartTimestamp;
         const billedHours = Math.ceil(rentalDuration / 3600);
         const billedAmount = new BigNum(rentedBike.pricePerHour).mul(billedHours);
-        const netDepositReturn = new BigNum(lastRentTransaction.amount).sub(billedAmount);
+        
+        // const paidAmount = lastRentTransaction.amount; // XXX how to this without lastRentTransaction?
+        const paidAmount = rentedBike.deposit;
+        
+        const netDepositReturn = new BigNum(paidAmount).sub(billedAmount);
         const newRecipientBalance = new BigNum(recipient.balance).sub(netDepositReturn).toString();
         const newSenderBalance = new BigNum(sender.balance).add(netDepositReturn).toString();
 
