@@ -5,8 +5,8 @@ const { Bike, BikeValidator } = require('./bike.domain');
 /**
  * Assets : {
  *     id: string
- *     lastRentTransactionId: string, Transaction.id
- *     lastReturnTransactionId: string, Transaction.id
+ *     // lastRentTransactionId: string, Transaction.id
+ *     // lastReturnTransactionId: string, Transaction.id
  * }
  */
 class ReturnBikeTransaction extends BaseTransaction {
@@ -30,17 +30,17 @@ class ReturnBikeTransaction extends BaseTransaction {
 
         const promises = [super.prepare(store), store.account.cache([ { address: this.recipientId }])];
 
-        if (this.asset.lastRentTransactionId) {
-            promises.push(store.transaction.cache({
-                id: this.asset.lastRentTransactionId,
-            }));
-        }
+        // if (this.asset.lastRentTransactionId) {
+        //     promises.push(store.transaction.cache({
+        //         id: this.asset.lastRentTransactionId,
+        //     }));
+        // }
 
-        if (this.asset.lastReturnTransactionId) {
-            promises.push(store.transaction.cache({
-                id: this.asset.lastReturnTransactionId,
-            }));
-        }
+        // if (this.asset.lastReturnTransactionId) {
+        //     promises.push(store.transaction.cache({
+        //         id: this.asset.lastReturnTransactionId,
+        //     }));
+        // }
 
         return Promise.all(promises);
     }
@@ -49,8 +49,8 @@ class ReturnBikeTransaction extends BaseTransaction {
 
         const errors = [];
 
-        const lastRentTransaction = store.transaction.find(t => t.id === this.asset.lastRentTransactionId);
-        const lastReturnTransaction = store.transaction.find(t => t.id === this.asset.lastReturnTransactionId);
+        // const lastRentTransaction = store.transaction.find(t => t.id === this.asset.lastRentTransactionId);
+        // const lastReturnTransaction = store.transaction.find(t => t.id === this.asset.lastReturnTransactionId);
         const sender = store.account.get(this.senderId);
         const recipient = store.account.get(this.recipientId);
         const rentedBike = recipient.asset.bikes[this.asset.id];
@@ -60,20 +60,21 @@ class ReturnBikeTransaction extends BaseTransaction {
         }
 
         if (rentedBike.rentedBy === undefined) {
-            errors.push(new TransactionError(`Bike not currently rented (returned by tx ${rentedBike.lastReturnTransactionId})`, this.id, "this.asset.id", this.asset.id, "The ID of a currently rented bike"));
+            errors.push(new TransactionError("Bike not currently rented", this.id, "this.asset.id", this.asset.id, "The ID of a currently rented bike"));
+            // errors.push(new TransactionError(`Bike not currently rented (returned by tx ${rentedBike.lastReturnTransactionId})`, this.id, "this.asset.id", this.asset.id, "The ID of a currently rented bike"));
         }
 
         if (rentedBike.rentedBy !== this.senderId) {
             errors.push(new TransactionError(`Bike can only be returned by the one who rented it`, this.id, "this.asset.id", this.asset.id, "Nice try"));
         }
 
-        if (lastRentTransaction.id !== rentedBike.lastRentTransactionId) {
-            errors.push(new TransactionError('Invalid lastRentTransactionId for this bike', this.id, '.asset.id', this.asset.lastRentTransactionId, 'The last rent transaction id of the bike you want to rent'));
-        }
+        // if (lastRentTransaction.id !== rentedBike.lastRentTransactionId) {
+        //     errors.push(new TransactionError('Invalid lastRentTransactionId for this bike', this.id, '.asset.id', this.asset.lastRentTransactionId, 'The last rent transaction id of the bike you want to rent'));
+        // }
 
-        if (rentedBike.lastReturnTransactionId && lastReturnTransaction.id !== rentedBike.lastReturnTransactionId) {
-            errors.push(new TransactionError('Invalid lastReturnTransactionId for this bike', this.id, '.asset.id', this.asset.lastReturnTransactionId, 'The last transaction id of the bike you want to rent'));
-        }
+        // if (rentedBike.lastReturnTransactionId && lastReturnTransaction.id !== rentedBike.lastReturnTransactionId) {
+        //     errors.push(new TransactionError('Invalid lastReturnTransactionId for this bike', this.id, '.asset.id', this.asset.lastReturnTransactionId, 'The last transaction id of the bike you want to rent'));
+        // }
 
         const rentalDuration = this.timestamp - lastRentTransaction.timestamp;
         const billedHours = Math.ceil(rentalDuration / 3600);
@@ -85,7 +86,7 @@ class ReturnBikeTransaction extends BaseTransaction {
         store.account.set(this.senderId, { ...sender, balance: newSenderBalance});
 
         rentedBike.rentalEndDatetime = this.timestamp;
-        rentedBike.lastReturnTransactionId = this.id;
+        // rentedBike.lastReturnTransactionId = this.id;
         rentedBike.rentedBy = undefined;
 
         recipient.balance = newRecipientBalance;
@@ -99,8 +100,8 @@ class ReturnBikeTransaction extends BaseTransaction {
 
         const errors = [];
 
-        const lastRentTransaction = store.transaction.find(t => t.id === this.asset.lastRentTransactionId) || {};
-        const lastReturnTransaction = store.transaction.find(t => t.id === this.asset.lastReturnTransactionId) || {};
+        // const lastRentTransaction = store.transaction.find(t => t.id === this.asset.lastRentTransactionId) || {};
+        // const lastReturnTransaction = store.transaction.find(t => t.id === this.asset.lastReturnTransactionId) || {};
         const sender = store.account.get(this.senderId);
         const recipient = store.account.get(this.recipientId);
         const rentedBike = recipient.asset.bikes[this.asset.id];
@@ -115,7 +116,7 @@ class ReturnBikeTransaction extends BaseTransaction {
         store.account.set(this.senderId, { ...sender, balance: newSenderBalance});
 
         rentedBike.rentalEndDatetime = this.timestamp;
-        rentedBike.lastReturnTransactionId = lastReturnTransaction.id;
+        // rentedBike.lastReturnTransactionId = lastReturnTransaction.id;
         rentedBike.rentedBy = this.senderId;
 
         recipient.balance = newRecipientBalance;
