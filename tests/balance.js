@@ -12,7 +12,7 @@ exec(`curl ${url}`, (err, stdout, stderr) => {
 		console.error(err)
 	} else {
 		// the *entire* stdout and stderr (buffered)
-		console.log(JSON.parse(stdout));
+		console.log(JSON.parse(stdout).data[0].balance);
 		//console.log(`stdout: ${stdout}`);
 		//console.log(`stderr: ${stderr}`);
 	}
