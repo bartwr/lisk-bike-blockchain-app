@@ -77,7 +77,7 @@ class ReturnBikeTransaction extends BaseTransaction {
         // }
 
         // const rentStartTimestamp = lastRentTransaction.timestamp; // XXX how to this without lastRentTransaction?
-        const rentStartTimestamp = this.timestamp - 15 * 60; // 15 minutes
+        const rentStartTimestamp = rentedBike.rentalStartDatetime; // this.timestamp - 15 * 60; // 15 minutes
 
         const rentalDuration = this.timestamp - rentStartTimestamp;
         const billedHours = Math.ceil(rentalDuration / 3600);
