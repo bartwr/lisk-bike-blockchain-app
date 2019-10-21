@@ -9,6 +9,8 @@ const ReturnBikeTransaction = require('./transactions/return-bike');
 configDevnet.app.label = 'lisk-bike-blockchain-app'; // change the label of the app
 configDevnet.components.storage.password = 'lisk123'; // replace password with the password for your database user
 
+configDevnet.modules.http_api.access.public = true;
+
 // Create the application instance
 const app = new Application(genesisBlockDevnet, configDevnet);
 
