@@ -23,7 +23,7 @@ const returnBike = (bike, renterAccount) => {
     });
 
     tx.sign(renterAccount.passphrase);
-    console.log(tx);
+    // console.log(tx);
 
     return client.transactions.broadcast(tx.toJSON())
     .then(() => tx)

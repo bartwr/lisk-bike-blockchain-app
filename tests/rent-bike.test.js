@@ -21,9 +21,9 @@ const rentBike = (bike, renterAccount) => {
         recipientId: bike.id,
         timestamp: getTimestamp(),
     });
-    // console.log(tx);
 
     tx.sign(renterAccount.passphrase);
+    // console.log(tx);
 
     return client.transactions.broadcast(tx.toJSON())
     .then(() => tx)
