@@ -6,7 +6,7 @@ const UpdateBikeLocationTransaction = require('../transactions/update-bike-locat
 const { getTimestamp, getBike } = require('./_helpers.js');
 
 const client = new APIClient([`http://${process.env.HTTP_HOST}:${process.env.HTTP_PORT}`]);
-const bikeAccount = JSON.parse(fs.readFileSync('./accounts/fiets1.json')); 
+const bikeAccount = JSON.parse(fs.readFileSync('./accounts/'+process.argv[2]+'.json')); 
 
 
 // const accountOfBike = {

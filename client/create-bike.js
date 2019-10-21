@@ -9,7 +9,7 @@ const { getTimestamp } = require('./_helpers.js');
 const CreateBikeTransaction = require('../transactions/create-bike'); // require the newly created transaction type 'HelloTransaction'
 
 // Get 'account'
-const account = JSON.parse(fs.readFileSync('./accounts/fiets1.json')); 
+const account = JSON.parse(fs.readFileSync('./accounts/'+process.argv[2]+'.json')); 
 
 // Get bike ID
 const bikeId = account.publicKey;

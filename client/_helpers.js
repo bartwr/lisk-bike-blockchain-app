@@ -8,7 +8,7 @@ const getTimestamp = () => {
 };
 
 const getBike = (client, account) => {
-  // console.log("account:",account.publicKey);
+  // console.log("account:", account);
 
   return client.accounts.get({
     //address: '1391163426858015119L'
