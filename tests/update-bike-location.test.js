@@ -8,21 +8,8 @@ const { getTimestamp, getBike } = require('./_helpers.js');
 const client = new APIClient([`http://${process.env.HTTP_HOST}:${process.env.HTTP_PORT}`]);
 const bikeAccount = JSON.parse(fs.readFileSync('./accounts/'+process.argv[2]+'.json')); 
 
-
-// const accountOfBike = {
-//   publicKey: 'pubkey',
-//   address: "ddsajuidsajldq8732"
-// }
-
-// const rentedBike = {
-//   id: 'pubkey',
-//   // Previous location
-//   location: {
-//     latitude: null,
-//     longitude: null,
-//   },
-// }
-
+const latitude = process.argv[3];
+const longitude = process.argv[4];
 
 
 const updateBikeLocation = (bikeAccount, bike, coords) => {
@@ -57,8 +44,8 @@ getBike(client, bikeAccount).then(bike => {
 
   // Current location
   const coords = {
-    latitude: "100",
-    longitude: "200",
+    latitude,
+    longitude,
   }
 
   updateBikeLocation(bikeAccount, bike, coords).then(updateResult => {
