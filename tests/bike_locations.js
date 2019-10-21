@@ -13,12 +13,23 @@ exec(`curl ${url}`, (err, stdout, stderr) => {
 		//some err occurred
 		console.error(err)
 	} else {
-		// the *entire* stdout and stderr (buffered)
-		const bikes = JSON.parse(stdout).data;
-		// const allBikesInfo = JSON.parse(stdout).data;
-		// const bikes = allBikesInfo.map(bike)
-		console.log(bikes);
-		//console.log(`stdout: ${stdout}`);
-		//console.log(`stderr: ${stderr}`);
+		JSON.parse(stdout).data.forEach(bike => {
+			const bikeId = bike.asset.id;
+			const url2 = `http://${process.env.HTTP_HOST}:${process.env.HTTP_PORT}/api/accounts?address=${bikeId}`;
+			// console.log(url2);
+			exec(`curl ${url2}`, (err, stdout, stderr) => {
+				if (err) {
+					//some err occurred
+					console.error(err)
+				} else {
+					const bikeAsset = JSON.parse(stdout).data[0].asset.bikes[bikeId];
+					console.log({
+						bikeId,
+						latitude: bikeAsset.location.latitude,
+						longitude: bikeAsset.location.longitude,
+					});
+				}
+			});
+		}); // next bike
 	}
 });
