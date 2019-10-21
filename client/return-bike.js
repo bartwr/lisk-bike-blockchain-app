@@ -21,14 +21,14 @@ const returnBike = (bike, renterAccount) => {
         recipientId: bike.id,
         timestamp: getTimestamp(),
     });
-    // console.log(tx);
 
     tx.sign(renterAccount.passphrase);
+    console.log(tx);
 
     return client.transactions.broadcast(tx.toJSON())
     .then(() => tx)
     .catch(err => {
-      console.error("err2:", err);
+      console.error("return-bike.err2:", err);
       // return Promise.reject(err);
     });
   }
@@ -37,8 +37,8 @@ const returnBike = (bike, renterAccount) => {
 getBike(client, bikeAccount).then(bike => {
   console.log("bike:", bike);
 
-  returnBike(bike, renterAccount).then(rentResult => {
-    console.log(rentResult);
+  returnBike(bike, renterAccount).then(returnResult => {
+    console.log(returnResult);
   });
 })
 

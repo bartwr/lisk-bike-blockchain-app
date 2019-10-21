@@ -28,7 +28,7 @@ const rentBike = (bike, renterAccount) => {
     return client.transactions.broadcast(tx.toJSON())
     .then(() => tx)
     .catch(err => {
-      console.error("err2:", err);
+      console.error("rent-bike.err2:", err);
       // return Promise.reject(err);
     });
   }
