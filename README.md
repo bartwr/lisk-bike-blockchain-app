@@ -42,26 +42,60 @@ Now there's a connection between the lock and the pubkey, in the Lisk blockchain
 
 ## 1. Create bike account (wallet)
 
-See `./tests/create-account.js`
+    cd tests
+    node create-account.test.js renter1
+    node create-account.test.js bike1
 
 Based on account creation, you get an address (pubkey).
 
 ## 2. Register bike on the blockchain
 
-See `./tests/create-bike.js`
+First, check the balance of bike1:
+
+    node balance.js bike1
+
+Only proceed if bike1 has a balance.
+
+    cd tests
+    node create-bike.test.js bike1
 
 The bike is registered using its pubkey. This is the bikes' bikeId.
 
 The server stores the IMEI & bikeId (= pubkey) in its database.
 This is how the server knows what bike transactions are related to this IMEI.
 
-## 3. Store GPS location on blockchain
+## X. Get (max 10) bike locations
 
-See `./tests/update-bike-location.js`.
+    cd tests
+    node bike_locations.js
+
+## X. Store GPS location on blockchain
+
+    cd tests
+    node update-bike-location.test.js bike1 lat lon
+    node update-bike-location.test.js bike1 51.9227954 4.4253305
 
 Every x minutes the server receives the GPS location.
 The server looks up the account of the lock in its database, based on IMEI.
 The locks privkey then signs the 'update-bike-location' transaction.
+
+## X. Rent bike
+
+    cd tests
+    node rent-bike.test.js renter1 bike1
+
+Sometimes you get the 'Invalid transaction timestamp. Timestamp is in the future' error.
+
+If this is the case: Try the command again. Mostly the second time works.
+
+## X. Return bike
+
+    cd tests
+    node return-bike.test.js renter1 bike1
+
+
+
+NOT USED/TESTED:
 
 ## 4. Store lock status on blockchain
 
