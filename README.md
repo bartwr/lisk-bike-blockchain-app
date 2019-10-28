@@ -16,7 +16,7 @@ The code is based on @JesusTheHun's work in [github.com/JesusTheHun/lisk-bike](h
 - run the blockchain: node index.js | npx bunyan -o short
 
 ### Preparing client
-- in 'client' edit .env file: HTTP_HOST=brainz.lisk.bike 
+- in 'tests' edit .env file: HTTP_HOST=brainz.lisk.bike 
 - TIME error: make sure that the time is sychronised. Check with time with command: date
 
 ### Preparing lock
@@ -35,20 +35,20 @@ Now the lock is connected to a server running https://github.com/bartwr/commonbi
 ### Onboarding lock to the Lisk.Bike blockchain
 
 - Lock sends the 'login' command to server
-- Server creates wallet for lock using `./client/create-account.js`
-- Server registers lock onto the blockchain using `./client/create-bike.js`
+- Server creates wallet for lock using `./tests/create-account.js`
+- Server registers lock onto the blockchain using `./tests/create-bike.js`
 
 Now there's a connection between the lock and the pubkey, in the Lisk blockchain.
 
 ## 1. Create bike account (wallet)
 
-See `./client/create-account.js`
+See `./tests/create-account.js`
 
 Based on account creation, you get an address (pubkey).
 
 ## 2. Register bike on the blockchain
 
-See `./client/create-bike.js`
+See `./tests/create-bike.js`
 
 The bike is registered using its pubkey. This is the bikes' bikeId.
 
@@ -57,7 +57,7 @@ This is how the server knows what bike transactions are related to this IMEI.
 
 ## 3. Store GPS location on blockchain
 
-See `./client/update-bike-location.js`.
+See `./tests/update-bike-location.js`.
 
 Every x minutes the server receives the GPS location.
 The server looks up the account of the lock in its database, based on IMEI.
