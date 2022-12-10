@@ -18,6 +18,6 @@
     "@liskhq/lisk-transactions": "^2.3.1",
     "@liskhq/lisk-validator": "^0.2.1",
     "dotenv": "^8.1.0",
-    "lisk-sdk": "^2.3.6"
+    "lisk-sdk": "^5.2.2"
   }
 }
